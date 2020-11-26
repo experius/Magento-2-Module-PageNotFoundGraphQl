@@ -1,0 +1,3 @@
+enum UrlRewriteEntityTypeEnum {
+    PAGE_NOT_FOUND_REDIRECT
+}

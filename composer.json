@@ -1,0 +1,28 @@
+{
+    "name": "experius/module-pagenotfoundgraphql",
+    "description": "Return a redirect in the GraphQl urlResolver based on the Experius_PageNotFound module",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        },
+        {
+            "name": "Lewis Voncken",
+            "email": "lewis@experius.nl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "experius/module-pagenotfound": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Experius\\PageNotFoundGraphQl\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
