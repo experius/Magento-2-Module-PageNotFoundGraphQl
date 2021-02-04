@@ -48,7 +48,7 @@ class EntityUrl
     ) {
         $result = $proceed($field, $context, $info, $value, $args);
         if (is_null($result) && $args['url'] != '/') {
-            $args['url'] = $this->savePageNotFound($args['url'], $context->getExtensionAttributes()->getStore());
+            $args['url'] = $this->savePageNotFound($args['url'], $context->getExtensionAttributes()->getStore()) ?: $args['url'];
             $result = $proceed($field, $context, $info, $value, $args);
             $result['redirectCode'] = 301;
         }
