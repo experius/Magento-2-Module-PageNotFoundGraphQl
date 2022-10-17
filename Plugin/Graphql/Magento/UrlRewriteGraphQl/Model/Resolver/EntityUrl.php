@@ -36,6 +36,7 @@ class EntityUrl
      * @param array|null $value
      * @param array|null $args
      * @return mixed
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundResolve(
         \Magento\UrlRewriteGraphQl\Model\Resolver\EntityUrl $subject,
