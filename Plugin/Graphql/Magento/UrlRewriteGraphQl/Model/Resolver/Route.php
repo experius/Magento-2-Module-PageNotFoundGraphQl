@@ -9,7 +9,7 @@ namespace Experius\PageNotFoundGraphQl\Plugin\Graphql\Magento\UrlRewriteGraphQl\
 
 use Magento\Store\Api\Data\StoreInterface;
 
-class EntityUrl
+class Route
 {
     /**
      * @var \Experius\PageNotFound\Model\PageNotFoundFactory
@@ -39,7 +39,7 @@ class EntityUrl
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundResolve(
-        \Magento\UrlRewriteGraphQl\Model\Resolver\EntityUrl $subject,
+        \Magento\UrlRewriteGraphQl\Model\Resolver\Route $subject,
         $proceed,
         $field,
         $context,
@@ -52,7 +52,7 @@ class EntityUrl
             $args['url'] = $this->savePageNotFound($args['url'], $context->getExtensionAttributes()->getStore()) ?: $args['url'];
             $result = $proceed($field, $context, $info, $value, $args);
             if (!is_null($result)) {
-                $result['redirectCode'] = 301;
+                $result['redirect_code'] = 301;
             }
         }
         return $result;
@@ -68,15 +68,12 @@ class EntityUrl
         $fromUrl,
         StoreInterface $store
     ) {
-
         /* @var $pageNotFoundModel \Experius\PageNotFound\Model\PageNotFound */
         $pageNotFoundModel = $this->pageNotFoundFactory->create();
-
         $baseUrl = $store->getBaseUrl();
         if (strpos($fromUrl, $baseUrl) === false) {
             $fromUrl = $baseUrl . ltrim($fromUrl, '/');
         }
-
         $pageNotFoundModel->load($fromUrl,'from_url');
 
         if($pageNotFoundModel->getId()){
@@ -92,7 +89,6 @@ class EntityUrl
         }
 
         $pageNotFoundModel->save();
-
         if($pageNotFoundModel->getToUrl()) {
             return str_replace($baseUrl, '', $pageNotFoundModel->getToUrl());
         }
