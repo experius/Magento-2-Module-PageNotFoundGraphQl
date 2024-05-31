@@ -7,13 +7,14 @@ declare(strict_types=1);
 
 namespace Experius\PageNotFoundGraphQl\Plugin\Graphql\Magento\UrlRewriteGraphQl\Model\Resolver;
 
-use Magento\Store\Api\Data\StoreInterface;
 use Experius\PageNotFound\Observer\Controller\ActionPredispatch;
+use Magento\UrlRewriteGraphQl\Model\Resolver\EntityUrl;
+use Magento\UrlRewriteGraphQl\Model\Resolver\Route as MagentoRoute;
 
 class Route extends ActionPredispatch
 {
     /**
-     * @param \Magento\UrlRewriteGraphQl\Model\Resolver\EntityUrl $subject
+     * @param EntityUrl $subject
      * @param $result
      * @param $field
      * @param $context
@@ -24,14 +25,15 @@ class Route extends ActionPredispatch
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundResolve(
-        \Magento\UrlRewriteGraphQl\Model\Resolver\Route $subject,
-                                                        $proceed,
-                                                        $field,
-                                                        $context,
-                                                        $info,
+        MagentoRoute $subject,
+              $proceed,
+              $field,
+              $context,
+              $info,
         array $value = null,
         array $args = null
-    ) {
+    )
+    {
         $result = $proceed($field, $context, $info, $value, $args);
         if (is_null($result) && $args['url'] != '/') {
             $args['url'] = $this->savePageNotFound($args['url'], true, $context->getExtensionAttributes()->getStore()) ?: $args['url'];
