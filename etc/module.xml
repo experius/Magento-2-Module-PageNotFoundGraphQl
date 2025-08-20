@@ -4,6 +4,7 @@
 		<sequence>
 			<module name="Magento_UrlRewriteGraphQl"/>
 			<module name="Experius_PageNotFound"/>
+            <module name="Magento_CatalogUrlRewriteGraphQl"/>
 		</sequence>
 	</module>
 </config>
